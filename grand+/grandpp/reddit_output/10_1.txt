@@ -1,0 +1,63 @@
+preprocessing done, time: 2.7732443809509277
+epoch 0, batch 0, validation loss 3.6138076782226562, validation acc 0.09674796747967479
+epoch 1, batch 10, validation loss 2.7360329627990723, validation acc 0.44552845528455287
+epoch 2, batch 20, validation loss 2.0949196815490723, validation acc 0.5349593495934959
+epoch 3, batch 30, validation loss 1.7460145950317383, validation acc 0.583739837398374
+epoch 4, batch 40, validation loss 1.5615628957748413, validation acc 0.6008130081300813
+epoch 5, batch 50, validation loss 1.4512721300125122, validation acc 0.6300813008130082
+epoch 6, batch 60, validation loss 1.3807827234268188, validation acc 0.6495934959349593
+epoch 7, batch 70, validation loss 1.3377560377120972, validation acc 0.6658536585365854
+epoch 8, batch 80, validation loss 1.3023595809936523, validation acc 0.6699186991869919
+epoch 10, batch 90, validation loss 1.2827564477920532, validation acc 0.667479674796748
+epoch 11, batch 100, validation loss 1.2687561511993408, validation acc 0.6617886178861788
+epoch 12, batch 110, validation loss 1.2634245157241821, validation acc 0.6650406504065041
+epoch 13, batch 120, validation loss 1.22856605052948, validation acc 0.6788617886178862
+epoch 14, batch 130, validation loss 1.2156072854995728, validation acc 0.6878048780487804
+epoch 15, batch 140, validation loss 1.2095993757247925, validation acc 0.675609756097561
+epoch 16, batch 150, validation loss 1.2120919227600098, validation acc 0.6845528455284553
+epoch 17, batch 160, validation loss 1.1992416381835938, validation acc 0.6780487804878049
+epoch 18, batch 170, validation loss 1.1821879148483276, validation acc 0.6853658536585366
+epoch 20, batch 180, validation loss 1.1747784614562988, validation acc 0.6934959349593496
+epoch 21, batch 190, validation loss 1.1793891191482544, validation acc 0.6926829268292682
+epoch 22, batch 200, validation loss 1.1913132667541504, validation acc 0.6967479674796748
+epoch 23, batch 210, validation loss 1.1903843879699707, validation acc 0.6991869918699187
+epoch 24, batch 220, validation loss 1.2041527032852173, validation acc 0.6934959349593496
+epoch 25, batch 230, validation loss 1.2041723728179932, validation acc 0.691869918699187
+epoch 26, batch 240, validation loss 1.2097848653793335, validation acc 0.6926829268292682
+epoch 27, batch 250, validation loss 1.1868374347686768, validation acc 0.6983739837398374
+epoch 28, batch 260, validation loss 1.1900264024734497, validation acc 0.6967479674796748
+epoch 30, batch 270, validation loss 1.1834228038787842, validation acc 0.7056910569105691
+epoch 31, batch 280, validation loss 1.1999056339263916, validation acc 0.6943089430894309
+epoch 32, batch 290, validation loss 1.1983304023742676, validation acc 0.6959349593495935
+epoch 33, batch 300, validation loss 1.1803419589996338, validation acc 0.7032520325203252
+epoch 34, batch 310, validation loss 1.217469334602356, validation acc 0.7032520325203252
+epoch 35, batch 320, validation loss 1.2385365962982178, validation acc 0.6951219512195121
+epoch 36, batch 330, validation loss 1.2395658493041992, validation acc 0.6983739837398374
+epoch 37, batch 340, validation loss 1.2289305925369263, validation acc 0.7024390243902439
+epoch 38, batch 350, validation loss 1.2413545846939087, validation acc 0.6983739837398374
+epoch 40, batch 360, validation loss 1.2251863479614258, validation acc 0.7113821138211383
+epoch 41, batch 370, validation loss 1.2126953601837158, validation acc 0.7138211382113822
+epoch 42, batch 380, validation loss 1.207779049873352, validation acc 0.7008130081300813
+epoch 43, batch 390, validation loss 1.217093825340271, validation acc 0.6959349593495935
+epoch 44, batch 400, validation loss 1.225225806236267, validation acc 0.697560975609756
+epoch 45, batch 410, validation loss 1.2210534811019897, validation acc 0.7008130081300813
+epoch 46, batch 420, validation loss 1.20797598361969, validation acc 0.6991869918699187
+epoch 47, batch 430, validation loss 1.2136870622634888, validation acc 0.7
+epoch 48, batch 440, validation loss 1.2386806011199951, validation acc 0.6943089430894309
+epoch 50, batch 450, validation loss 1.210816502571106, validation acc 0.7016260162601626
+epoch 51, batch 460, validation loss 1.2348829507827759, validation acc 0.6967479674796748
+epoch 52, batch 470, validation loss 1.2259536981582642, validation acc 0.6983739837398374
+epoch 53, batch 480, validation loss 1.2132940292358398, validation acc 0.7065040650406504
+epoch 54, batch 490, validation loss 1.2326526641845703, validation acc 0.6967479674796748
+epoch 55, batch 500, validation loss 1.2379924058914185, validation acc 0.7040650406504065
+epoch 56, batch 510, validation loss 1.218752384185791, validation acc 0.7
+epoch 57, batch 520, validation loss 1.2176307439804077, validation acc 0.708130081300813
+epoch 58, batch 530, validation loss 1.242572546005249, validation acc 0.7073170731707317
+epoch 60, batch 540, validation loss 1.2377560138702393, validation acc 0.7
+epoch 61, batch 550, validation loss 1.217031478881836, validation acc 0.7016260162601626
+epoch 62, batch 560, validation loss 1.2053242921829224, validation acc 0.7032520325203252
+epoch 63, batch 570, validation loss 1.1993598937988281, validation acc 0.708130081300813
+Early stop! Min loss: 1.1747784614562988, Max accuracy: 0.7138211382113822, num batch: 570 num epoch: 63
+Optimization Finished! Min loss: 1.1747784614562988, Max accuracy: 0.7138211382113822, num batch: 570 num epoch: 63
+Total time elapsed: 36.4881s
+Loading 41th epoch
