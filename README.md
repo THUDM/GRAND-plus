@@ -1,15 +1,23 @@
+# GRAND+
 
-```bash
-python scripts/download.py --url https://drive.google.com/open?id=1KauMd-AJXyD6KQQnf4vySjRZEOgWQYvx --path dataset --fname reddit.zip
-python scripts/download.py --url https://drive.google.com/open?id=1VKHFQfRXkkVShE6d4hA9dImXZalz49qa --path dataset --fname mag_scholar_c.npz
-python scripts/download.py --url https://drive.google.com/open?id=1G9Wn1OaqMYpkNmbOESYUFrDgzo0Be0-L --path dataset --fname aminer.zip
-python scripts/download.py --url https://drive.google.com/open?id=1uItY1AGywFv4nSSFpqBaTEUoDn3w414B --path dataset --fname Amazon2M.zip
-python scripts/download.py --url https://drive.google.com/open?id=11VMDX2-gldD6kDDKTRyexLoqF-cvqiMc --path dataset --fname citation.zip
+This is a PyTorch implementation of GRAND+ for scalable graph-based semi-supervised learning:
+
+[GRAND+: Scalable Graph Random Neural Networks]
+
+
+## Datasets
+The datasets used in the paper (including `Cora`, `Citeseer`, `Pubmed`, `AMiner-CS`, `Reddit`, `Amazon2M` and `MAG-Scholar-C`) can be downloaded from [Google Drive](https://drive.google.com/drive/folders/1LV8kMRnQENQnwi6qtbycTgVAEGX8rxQv?usp=sharing) or [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/d8194be5640242759671/).
+
+
+## Cite
+
+If you find **GRAND+** is useful for your research, please consider citing our paper:
+
 ```
-```
-python scripts/download.py --url https://cloud.tsinghua.edu.cn/f/629a605e453b40fc9a93/?dl=1 --path dataset --fname aminer.zip
-python scripts/download.py --url https://cloud.tsinghua.edu.cn/f/7c867cef16214fe1a30b/?dl=1 --path dataset --fname Amazon2M.zip
-python scripts/download.py --url https://cloud.tsinghua.edu.cn/f/1789569aa2b045169404/?dl=1 --path dataset --fname citation.zip
-python scripts/download.py --url https://cloud.tsinghua.edu.cn/f/5e5c9d8833a143d5abb4/?dl=1 --path dataset --fname mag_scholar_c.npz
-python scripts/download.py --url https://cloud.tsinghua.edu.cn/f/384be92876ed4127aa3c/?dl=1 --path dataset --fname reddit.zip
+@inproceedings{feng2022grand+,
+  title={GRAND+: Scalable Graph Random Neural Networks},
+  author={Feng, Wenzheng and Dong, Yuxiao and Huang, Tinglin and Yin, Ziqi and Cheng, Xu and Kharlamov, Evgeny and Tang, Jie},
+  booktitle={Proceedings of the ACM Web Conference 2022 (WWW’22)},
+  year={2022}
+}
 ```
