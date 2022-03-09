@@ -11,7 +11,7 @@ The datasets used in the paper (including `Cora`, `Citeseer`, `Pubmed`, `AMiner-
 
 ## Cite
 
-If you find **GRAND+** is useful for your research, please consider citing our paper:
+If you find this work is helpful to your research, please consider citing our paper:
 
 ```
 @inproceedings{feng2022grand+,
