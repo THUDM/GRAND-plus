@@ -14,24 +14,25 @@ from sklearn import metrics
 
 def load_data(dataset_str='cora', split_seed=0, renormalize=False):
     """Load data."""
-    if  os.path.exists("dataset/"):
-        path = "dataset/"
+    if  os.path.exists("dataset/{}".format(dataset_str)):
+        path = "dataset/{}".format(dataset_str)
     else:
-        path = "../dataset/"
+        path = "dataset/"
     if dataset_str == 'aminer':
-        adj = pkl.load(open(path + "{}/{}.adj.sp.pkl".format(dataset_str, dataset_str), "rb"))
+        
+        adj = pkl.load(open(os.path.join(path, "{}.adj.sp.pkl".format(dataset_str)), "rb"))
         features = pkl.load(
-            open(path + "{}/{}.features.pkl".format(dataset_str, dataset_str), "rb"))
+            open(os.path.join(path, "{}.features.pkl".format(dataset_str)), "rb"))
         labels = pkl.load(
-            open(path + "{}/{}.labels.pkl".format(dataset_str, dataset_str), "rb"))
+            open(os.path.join(path, "{}.labels.pkl".format(dataset_str), "rb")))
         random_state = np.random.RandomState(split_seed)
         idx_train, idx_val, idx_test = get_train_val_test_split(
             random_state, labels, train_examples_per_class=20, val_examples_per_class=30)
         idx_unlabel = np.concatenate((idx_val, idx_test))
         features = col_normalize(features)
-
+    
     elif dataset_str in ['ms_academic_cs', 'ms_academic_phy', 'amazon_electronics_photo', 'amazon_electronics_computers', 'cora_full']:
-        datapath = path + dataset_str + '.npz'
+        datapath = os.path.join(path, dataset_str + '.npz')
         adj, features, labels = get_dataset(
             dataset_str, datapath, True, train_examples_per_class=20, val_examples_per_class=30)
         random_state = np.random.RandomState(split_seed)
@@ -41,9 +42,9 @@ def load_data(dataset_str='cora', split_seed=0, renormalize=False):
         features = features.todense()
     
     elif dataset_str in ['reddit']:
-        adj = sp.load_npz(path + '{}/{}_adj.npz'.format(dataset_str, dataset_str))
-        features = np.load(path + '{}/{}_feat.npy'.format(dataset_str, dataset_str))
-        labels = np.load(path + '{}/{}_labels.npy'.format(dataset_str, dataset_str)) 
+        adj = sp.load_npz(os.path.join(path, '{}_adj.npz'.format(dataset_str)))
+        features = np.load(os.path.join(path, '{}_feat.npy'.format(dataset_str)))
+        labels = np.load(os.path.join(path, '{}_labels.npy'.format(dataset_str))) 
         print(labels.shape, list(np.sum(labels, axis=0)))
         random_state = np.random.RandomState(split_seed)
         idx_train, idx_val, idx_test = get_train_val_test_split(
@@ -52,9 +53,9 @@ def load_data(dataset_str='cora', split_seed=0, renormalize=False):
         print(dataset_str, features.shape)
     
     elif dataset_str in ['Amazon2M']:
-        adj = sp.load_npz(path + '{}/{}_adj.npz'.format(dataset_str, dataset_str))
-        features = np.load(path + '{}/{}_feat.npy'.format(dataset_str, dataset_str))
-        labels = np.load(path + '{}/{}_labels.npy'.format(dataset_str, dataset_str))
+        adj = sp.load_npz(os.path.join(path, '{}_adj.npz'.format(dataset_str)))
+        features = np.load(os.path.join(path, '{}_feat.npy'.format(dataset_str)))
+        labels = np.load(os.path.join(path, '{}_labels.npy'.format(dataset_str)))
         print(labels.shape, list(np.sum(labels, axis=0)))
         random_state = np.random.RandomState(split_seed)
         class_num = labels.shape[1]
@@ -82,17 +83,20 @@ def load_data(dataset_str='cora', split_seed=0, renormalize=False):
         idx_unlabel = np.concatenate((idx_val, idx_test))
 
     elif dataset_str in ['cora', 'citeseer', 'pubmed']:
+
+        if os.path.exists("dataset/citation"):
+           path = 'dataset/citation' 
         names = ['x', 'y', 'tx', 'ty', 'allx', 'ally', 'graph']
         objects = []
         for i in range(len(names)):
-            with open(path + "citation/ind.{}.{}".format(dataset_str, names[i]), 'rb') as f:
+            with open(os.path.join(path,"ind.{}.{}".format(dataset_str, names[i])), 'rb') as f:
                 if sys.version_info > (3, 0):
                     objects.append(pkl.load(f, encoding='latin1'))
                 else:
                     objects.append(pkl.load(f))
         x, y, tx, ty, allx, ally, graph = tuple(objects)
         test_idx_reorder = parse_index_file(
-            path + "citation/ind.{}.test.index".format(dataset_str))
+            os.path.join(path, "ind.{}.test.index".format(dataset_str)))
         test_idx_range = np.sort(test_idx_reorder)
 
         if dataset_str == 'citeseer':

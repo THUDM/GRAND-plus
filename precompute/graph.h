@@ -50,7 +50,7 @@ public:
         return a.second > b.second;
     }
 
-    void forward_rw_omp(py::array_t<int>& node_idx, py::array_t<int>& row_idx, py::array_t<int> & col_idx, py::array_t<double> & value, py::array_t<double> & coef, const double & rmax, const int & K){
+    void gfpush_omp(py::array_t<int>& node_idx, py::array_t<int>& row_idx, py::array_t<int> & col_idx, py::array_t<double> & value, py::array_t<double> & coef, const double & rmax, const int & K){
         struct timeval t_start,t_end, t_1, t_2, t_3; 
         double timeCost;
         gettimeofday(&t_start, NULL); 
@@ -76,7 +76,7 @@ public:
             unordered_map<int, double> residue_value = unordered_map<int, double>();
             unordered_map<int, double> reserve_value = unordered_map<int, double>();
 
-            int node_id = node_idx_ptr[it]; //w = random_w[it]
+            int node_id = node_idx_ptr[it]; 
             double r_sum = 1.0;
             residue_value[node_id] = 1.0;
             reserve_value[node_id] = 0.;
@@ -115,17 +115,17 @@ public:
             std::nth_element(res.begin(), res.begin() + k - 1, res.end(), cmp);
 
             for(int i =0; i< k; i++){
-		        int col_id = res[i].first;
+	        int col_id = res[i].first;
                 double v_ = res[i].second;
                 int idx = it * K + i;
-		        if (v_ > 0.0){
+		if (v_ > 0.0){
                     row_idx_ptr[idx] = node_id;
                     col_idx_ptr[idx] = col_id;
                     value_ptr[idx] = v_;
-		        }
+		}
             }
-        }        
-
+        }
+	
         gettimeofday(&t_end, NULL); 
         timeCost = t_end.tv_sec - t_start.tv_sec + (t_end.tv_usec - t_start.tv_usec)/1000000.0;
     }

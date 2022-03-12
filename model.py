@@ -180,7 +180,7 @@ def get_local_logits(model, attr_mat, batch_size=10000):
 
 def predict(args, adj, features_np, model, idx_test, labels_org, mode='ppr', batch_size_logits=10000):
     model.eval()
-    nprop = args.pred_prop
+    nprop = args.order
     
     feats = []
     if mode == 'ppr':
@@ -246,7 +246,6 @@ def main(args):
     idx_unlabel = np.concatenate([idx_val, idx_sample]) 
     idx_train_unlabel = np.concatenate(
         [idx_train, idx_unlabel])
-    print(idx_train_unlabel.shape)
     indptr = np.array(adj.indptr, dtype=np.int32)
     indices = np.array(adj.indices, dtype=np.int32)
     graph = propagation.Graph(indptr, indices, args.seed2)
@@ -264,15 +263,13 @@ def main(args):
         coef[-1] = 1.0
     else:
         raise ValueError(f"Unknown propagation mode: {args.prop_mode}")
+    print(f"propagation matrix: {args.prop_mode}")
     coef = np.asarray(coef) / np.sum(coef)
-    graph.forward_rw_omp(idx_train_unlabel, row_idx, col_idx, mat_value, coef, args.rmax, args.top_k)
+    graph.gfpush_omp(idx_train_unlabel, row_idx, col_idx, mat_value, coef, args.rmax, args.top_k)
     
-    print(row_idx.astype(np.int32).max(), col_idx.astype(np.int32).max(), features.shape[0])
     topk_adj = sp.coo_matrix((mat_value, (row_idx, col_idx)), (
         features.shape[0], features.shape[0]))
     topk_adj = topk_adj.tocsr()
-    sum_s = np.asarray(topk_adj.sum(1)).squeeze()
-    print('topk_adj: ', sum_s.shape, sum_s[idx_train_unlabel])
     time_preprocessing = time.time() - time_s1
     print(f"preprocessing done, time: {time_preprocessing}")
     features_np = features
@@ -341,8 +338,9 @@ def main(args):
                     args, model, topk_adj, features, idx_val, labels, args.batch_size)
                 loss_values.append(loss_val)
                 acc_values.append(acc_val)
-                print(
-                    f'epoch {epoch}, batch {num_batch}, validation loss {loss_val}, validation acc {acc_val}')
+                if args.visible:
+                    print(
+                        f'epoch {epoch}, batch {num_batch}, validation loss {loss_val}, validation acc {acc_val}')
                 if acc_values[-1] >= acc_mx:
                     if args.stop_mode == 'acc' or (args.stop_mode == 'both' and loss_values[-1]<= loss_mn):
                         loss_mn = loss_values[-1]
@@ -355,17 +353,18 @@ def main(args):
                 else:
                     bad_counter += 1
                 if bad_counter >= args.patience:
-                    print(
-                        f'Early stop! Min loss: {loss_mn}, Max accuracy: {acc_mx}, num batch: {num_batch} num epoch: {epoch}')
+                    if args.visible:
+                        print(
+                            f'Early stop! Min loss: {loss_mn}, Max accuracy: {acc_mx}, num batch: {num_batch} num epoch: {epoch}')
                     break
             num_batch += 1
         if bad_counter >= args.patience:
             break
-
-    print(
-        f'Optimization Finished! Min loss: {loss_mn}, Max accuracy: {acc_mx}, num batch: {num_batch} num epoch: {epoch}')
-
-    print('Loading {}th epoch'.format(best_epoch))
+    if args.visible:
+        print(
+            f'Optimization Finished! Min loss: {loss_mn}, Max accuracy: {acc_mx}, num batch: {num_batch} num epoch: {epoch}')
+    if args.visible:
+        print('Loading {}th epoch'.format(best_epoch))
     model.load_state_dict(torch.load(f"{args.model}_{dataset}.pkl"))
     test_acc = predict(args, adj, features_np, model, idx_test, labels, mode = args.prop_mode)
     t_total = time.time() - time_s1
@@ -374,72 +373,3 @@ def main(args):
     return t_total, test_acc, np.mean(batch_time), num_batch
 
 
-# Training settings
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, default="graphsage",
-                        help='model name')
-    parser.add_argument('--no-cuda', action='store_true', default=False,
-                        help='Disables CUDA training.')
-    parser.add_argument('--fastmode', action='store_true', default=False,
-                        help='Validate during training pass.')
-    parser.add_argument('--seed1', type=int, default=42, help='split seed.')
-    parser.add_argument('--seed2', type=int, default=42, help='Random seed.')
-    parser.add_argument('--epochs', type=int, default=5000,
-                        help='Number of epochs to train.')
-    parser.add_argument('--lr', type=float, default=0.01,
-                        help='Initial learning rate.')
-    parser.add_argument('--weight_decay', type=float, default=5e-3,
-                        help='Weight decay (L2 loss on parameters).')
-    parser.add_argument('--hidden', type=int, default=32,
-                        help='Number of hidden units.')
-    parser.add_argument('--input_droprate', type=float, default=0.5,
-                        help='Dropout rate of the input layer (1 - keep probability).')
-    parser.add_argument('--hidden_droprate', type=float, default=0.5,
-                        help='Dropout rate of the hidden laayer (1 - keep probability).')
-    parser.add_argument('--dropnode_rate', type=float, default=0.5,
-                        help='Dropnode rate (1 - keep probability).')
-    parser.add_argument('--patience', type=int, default=20, help='Patience')
-    parser.add_argument('--sample', type=int, default=2,
-                        help='Sampling times of dropnode')
-    parser.add_argument('--tem', type=float, default=0.1,
-                        help='Sharpening temperature')
-    parser.add_argument('--lam', type=float, default=1.0, help='Lamda')
-    parser.add_argument('--dataset', type=str, default='cora', help='Data set')
-    parser.add_argument('--cuda_device', type=int,
-                        default=6, help='Cuda device')
-    parser.add_argument('--alpha', type=float, default=0.1, help='Cuda device')
-    parser.add_argument('--beta', type=float, default=0.0, help='Cuda device')
-    parser.add_argument('--warmup', type=float,
-                        default=100, help='Cuda device')
-    parser.add_argument('--use_bn', type=bool,
-                        default=False, help='Using Batch Normalization')
-    parser.add_argument('--top_k', type=int, default=32,
-                        help='top neirghbor num in ppr')
-    parser.add_argument('--rmax', type=float, default=1e-4,
-                        help='ppr approximate')
-    parser.add_argument('--unlabel_batch_size', type=int,
-                        default=100, help='unlabel batch size')
-    parser.add_argument('--eval_batch', type=int,
-                        default=10, help='evaluation batch num')
-    parser.add_argument('--batch_size', type=int,
-                        default=10, help='batch size')
-    parser.add_argument("--clip-norm", type=float,
-                        default=1.0, help="clip norm")
-    parser.add_argument('--conf', type=float, default=0.8, help='confidence')
-    parser.add_argument('--pred_prop', type=int, default=5, help='prop num')
-    parser.add_argument('--order', type=int, default=6, help='prop num')
-    parser.add_argument('--unlabel_num', type=int,
-                        default=0, help='unlabeled node ratio')
-    parser.add_argument('--prop_mode', type=str,
-                        default="ppr", help='ppr or avg')
-    parser.add_argument('--nlayers', type=int,
-                        default=2, help='layer num')
-    parser.add_argument('--stop_mode', type=str,
-                        default='loss', help="acc, loss, both")
-    parser.add_argument('--log', type=bool,
-                        default=True, help="acc, loss, both")
-    parser.add_argument('--loss', type=str,
-                        default="l2", help="l2, js")
-    args = parser.parse_args()
-    main(args)
