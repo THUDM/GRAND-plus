@@ -41,13 +41,10 @@ python scripts/download.py --url https://cloud.tsinghua.edu.cn/f/5e5c9d8833a143d
 `make clean && make`
 
 ## Running the code
-- Reproduce the results on Cora: `sh scripts/run_cora.sh` 
-- Reproduce the results on Citeseer: `sh scripts/run_citeseer.sh` 
-- Reproduce the results on Pubmed: `sh scripts/run_pubmed.sh` 
-- Reproduce the results on AMiner-CS: `sh scripts/run_aminer.sh` 
-- Reproduce the results on Reddit: `sh scripts/run_reddit.sh` 
-- Reproduce the results on Amazon2M: `sh scripts/run_amazon2m.sh` 
-- Reproduce the results on MAG-Scholar-C: `sh scripts/run_mag.sh` 
+ `sh scripts/run_<dataset>.sh <runs> <cuda_id> <propagation matrix> [ppr, avg, single]` 
+### Example:
+- Running model on Pubmed for 10 runs with personalized pagerank matrix: 
+ `sh scripts/run_pubmed.sh 10 <cuda_id> ppr` 
 
 ## Cite
 
