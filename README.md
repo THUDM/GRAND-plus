@@ -41,7 +41,7 @@ python scripts/download.py --url https://cloud.tsinghua.edu.cn/f/5e5c9d8833a143d
 `make clean && make`
 
 ## Running the code
- `sh scripts/run_<dataset>.sh <runs> <cuda_id> <propagation matrix> [ppr, avg, single]` 
+ `sh scripts/run_<dataset>.sh <runs> <cuda_id> <propagation matrix [ppr, avg, single]>` 
 ### Example:
 - Running model on Pubmed for 10 runs with personalized pagerank matrix: 
  `sh scripts/run_pubmed.sh 10 <cuda_id> ppr` 
