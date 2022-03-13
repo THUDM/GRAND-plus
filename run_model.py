@@ -58,7 +58,6 @@ if __name__ == '__main__':
                         help='top neirghbor num')
     parser.add_argument('--rmax', type=float, default=1e-7,
                         help='GFPush threshold')
-    parser.add_argument('--conf', type=float, default=0.3, help='confidence')
     parser.add_argument('--order', type=int, default=10, help='propagation step N')
     parser.add_argument('--unlabel_num', type=int,
             default=-1, help="unlabeled node num (|U'|) for consistency regularization")
