@@ -24,7 +24,7 @@ def load_data(dataset_str='cora', split_seed=0, renormalize=False):
         features = pkl.load(
             open(os.path.join(path, "{}.features.pkl".format(dataset_str)), "rb"))
         labels = pkl.load(
-            open(os.path.join(path, "{}.labels.pkl".format(dataset_str), "rb")))
+            open(os.path.join(path, "{}.labels.pkl".format(dataset_str)), "rb"))
         random_state = np.random.RandomState(split_seed)
         idx_train, idx_val, idx_test = get_train_val_test_split(
             random_state, labels, train_examples_per_class=20, val_examples_per_class=30)
