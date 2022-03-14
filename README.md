@@ -2,7 +2,7 @@
 
 This is a PyTorch implementation of GRAND+ for scalable graph-based semi-supervised learning:
 
-[GRAND+: Scalable Graph Random Neural Networks]
+[GRAND+: Scalable Graph Random Neural Networks](http://keg.cs.tsinghua.edu.cn/jietang/publications/WWW22-Feng-et-al-GRAND-plus.pdf)
 
 
 ## Datasets
