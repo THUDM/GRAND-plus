@@ -4,6 +4,7 @@ This is a PyTorch implementation of GRAND+ for scalable graph-based semi-supervi
 
 [GRAND+: Scalable Graph Random Neural Networks](http://keg.cs.tsinghua.edu.cn/jietang/publications/WWW22-Feng-et-al-GRAND-plus.pdf)
 
+You may be also interested in the predecessor of this work: [Graph Random Neural Network for Semi-Supervised Learning on Graphs](http://keg.cs.tsinghua.edu.cn/jietang/publications/NIPS20-Feng-et-al-GRAND.pdf) [[github repo](https://github.com/THUDM/GRAND)].
 
 ## Datasets
 This repo contains `Cora`, `Citeseer` and `Pubmed` datasets under the path `dataset/citation/`. The other datasets used in the paper (including `AMiner-CS`, `Reddit`, `Amazon2M` and `MAG-Scholar-C`) can be downloaded from [Google Drive](https://drive.google.com/drive/folders/1LV8kMRnQENQnwi6qtbycTgVAEGX8rxQv?usp=sharing) or [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/d8194be5640242759671/). To run model on these datasets, you should download the corresponding zip file, uncompress it and put it under `dataset/`. 
